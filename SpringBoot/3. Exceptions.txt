@@ -1,0 +1,72 @@
+Java contains Errors & Exceptions.
+(1) Exceptions : can be handled by programmer.
+(2) Errors: can't be handled by programmer.
+
+Types of Statements:
+(i) normal statements : a kid running in a restaurant
+Eg. int i=1;
+(ii) critical statements : a kid running on highway
+Eg. int k = i/j;   // this is critical statement as the value of j might be 0 and hence it'll throw an exception
+Always write critical statements inside a block, if that block generates any kind of exception the programmer has to handle it.
+Q. How to handle the exception?
+Ans. TRY block will contain the critical statement, if any exception comes, the execution goes to CATCH.
+Try block will throw the exception & Catch block will catch the exception.
+Eg. try{
+    int i = j/k;         // k maybe 0
+    }
+    catch(Arithmetic exception ae) {
+    // some code
+    }
+// this catch accepts an arithmetic exception 
+    catch(IOException ie){
+    // some code
+    }
+// this catch accepts io exception
+
+Now the problem is if we have a statement and we don't know what kind of exception it throws i.e. arithmetic exception or ioexception or something else,
+we go for a general exception i.e. exception, it is a super-class of all the exceptions.
+
+    catch(Exception e){
+    // handles all type of exception
+    }
+
+-> Exception can be of 2 types:
+(i) Checked : allowing the user/client to handle it
+(ii) Unckecked : if user can't handle the exception, its unchecked exception
+
+-> THROWABLE class is used to handle all your errors & exceptions. This class is extended by 2 classes:
+(1) Exception :
+  (i) Checked -> IOException , SQLException
+  (ii) Unchecked -> RuntimeException (Arithmetic exception)
+(2) Error -> memory leak, cpu not working ....
+
+CODE:
+class Main {
+  public static void main(String[] args) {
+   int i,j,k=0;
+    i=8;
+    j=0;    // throws arithmetic exception 
+    try{
+    k = i/j; // this statement is CRITICAL statement, we know that all critical statements must belong to TRY block , and also catch it using catch()
+    }
+    catch(Exception e){
+      // System.out.println(e);  // java.lang.ArithmeticException: / by zero
+    } 
+    System.out.println(k);    // 0
+  }
+}
+// In java we have Errors & Exceptions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

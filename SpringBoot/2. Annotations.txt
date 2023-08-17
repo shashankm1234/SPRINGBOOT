@@ -1,0 +1,155 @@
+1. @SpringBootApplication
+Combination of these 3:
+@EnableAutoConfiguration , @ComponentScan , @Configuration
+
+2. @Configuration
+Class having this annotation means class will contain such methods that will be returning bean.
+Class having this annotation can have their methods which return Java Beans.Their objects will be managed by Spring itself. 
+
+3. @Bean (only for methods)
+Applied on a method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods.
+@Bean annotation indicates that a method produces a bean to be managed by the Spring container. 
+The @Bean annotation is usually declared in the Configuration class to create Spring Bean definitions.
+Tells us that bean is returned.No need to create class object.
+Used inside @Configuration class, returns a bean managed by spring container
+
+4. @Autowired (searches the object in spring container, @Component creates object in spring container & @Autowired gets us connected with that object)
+The @Autowired annotation is used to inject the bean automatically. The @Autowired annotation is used in constructor injection, setter injection, and field injection
+Will inject dependencies , it can be done on property,setter,constructor.  The @Autowired annotation can be used to autowire bean on the setter method just like 
+@Required annotation, constructor, a property or methods with arbitrary names and/or multiple arguments.
+
+5. @Component (only for classes,written above the class & tells spring that this is a class of which i want an object,so when the application runs that 
+class object is created, its available in the spring container and spring will inject its object in your app i.e. Dependency Injection) 
+objects of this class will be managed by our Spring container
+Instead of declaring @Bean on top of method, we can use @Component on the class itself.
+Till now to make object of class we were making a method in Configuration class and on that method we had to put @Bean annotation.
+It contains these annotations : (i) @Controller , (ii) @Service , (iii) @Repository
+(i) @Controller -> will do the work of @Component and also will work as MVC Controller , mainly used to make a class Controller of spring mvc
+    The class where we use this will be a component(i.e. that class object will be automatically created).
+(ii) @Service -> Used of Service class , provides extra features
+(iii) @Repository -> in classes when an exception comes, this will re-throw that exception as a Spring unchecked exception
+      Used to make DAO Layer(Data Access Object)
+
+6. @ComponentScan
+To use a package thats outside the current package, we use @ComponentScan.
+// this @ComponentScan scans the package "myPack" also its subpackages, hence this helps to use other package in our package
+// if there are multiple packages -> @ComponentScan(basePackages = {"myPack","yourPack","theirPack"})
+
+7. @Qualifier (@Autowired searches by type & @Qualifier searches by name)
+NOTE:   
+@Autowired
+private Student st;                  // here @Autowired matches the type i.e. injects the object of Student type , but what if there are 2 types of Student
+
+@Qualifier("student1")          // suppose Student has 2 objects and Autowired gets confused which to use, simply name them like @Bean("student1") and for the 
+                                second object name it @Bean("student2") , in main()class
+@Autowired
+@Qualifier("student1")          
+private Student student;
+// both the objects will be made when main() will execute, Spring container is scanning and creating both objects of Student but @Qualifier is helping to inject the
+// name passed to it i.e. "student1" which we passed while declaring i.e.
+ @Bean("student1")
+    public Student getStudent(){
+        System.out.println("Creating first student object");
+        return new Student("Student1");
+}
+    // here r 2 Student objects , when @Autowired is used to inject dependies, it'll get confused which Student object to inject
+    // so we'll use @Qualifier
+    // so now we can specifically inject "student1" or "student2"
+    @Bean("student2")
+    public Student createStudent(){
+        System.out.println("Creating second student object");
+        return new Student("Student2");
+}
+O.P. Creating first student object
+     Creating second student object
+// Object dono student k banenge but inject sirf "student1" vala hoga
+
+8. @Lazy
+Means when object is needed only then it'll be created, if object isn't needed it won't b created.
+@Bean("student1")
+    public Student getStudent(){
+        System.out.println("Creating first student object");
+        return new Student("Student1");
+    }
+    // using @Lazy tells we don't need student2 object so the student2 object will not b creating when main() will run
+    @Bean("student2")
+    @Lazy
+    public Student createStudent(){
+        System.out.println("Creating second student object");
+        return new Student("Student2");
+    }
+
+O.P. Creating first student object
+NOTE: If object is marked @Lazy and we inject that same object using @Qualifier , then its object will be made.
+Lazy simply means that if its not injected then it won't even create itself(object). It will only create itself when its object is injected.
+(tabhi kaam krta h jb bola jata h kaam krne ko)
+
+9. @Controller (above class) (http://localhost:8081/home) Controller will accept this url request.
+Spring provides @Controller annotation to make a Java class as a Spring MVC controller. 
+The @Controller annotation indicates that a particular class serves the role of a controller. 
+For different requests we want different pages.
+@RequestMapping("home")        // tells whenever you get request for "home", execute the given method below @RequestMapping
+NOTE: 
+
+10. @RequestMapping
+@RequestMapping is the most common and widely used annotation in Spring MVC. It is used to map web requests onto specific handler classes and/or handler methods. 
+It takes 2 things: (1) value(the url)   (2)the get method when we request from browser
+Mapping our request with the method().
+CODE:
+@Controller   // class object will automatically be made since @Controller is a Component & it'll also provide Spring MVC feature
+public class MyController {
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
+    public String home(){
+        System.out.println("this is home method");
+        return "this is my home";
+    }
+}
+O.P. this is home method         //in our console (the method starts running when we refresh page and prints in console)
+// This is mapping our request i.e. "/home" with method and the function home() will be executed.
+
+11. @ResponseBody
+To send data to the browser page. Whatever we return, like here we're returning "this is my home", it automatic converts into JSON and gets returned to http response.
+It'll be shown on the screen.
+The @ResponseBody annotation tells a controller that the object returned is automatically serialized into JSON and passed back into the HttpResponse object.
+Since here "this is my home" is returned,so it is the response given to the page.
+CODE:
+@RequestMapping(value = "/home",method = RequestMethod.GET)
+    @ResponseBody
+    public String home(){
+        System.out.println("this is home method");
+        return "this is my home";
+}
+O.P.  this is my home      // on the browser when we refresh it
+// on the home page in our browser, due to @ResponseBody when we refresh "this is my home" will appear.
+
+12. @RequestBody
+When some data comes from a FORM,
+The data that will be coming in the RequestBody as a JSON, it'll get automatic deserialize i.e. data will auto convert to object and go inside the particular class 
+where we're using it.
+
+13. @RestController
+When a controller is returning JSON eg. {"name":"Shashank"} , its called RestController.
+Instead of using @Controller , use @RestController.
+DO AGAIN(NOT CLEAR)
+
+14. @PathVariable
+When some data comes in url, we use PathVariable.
+
+15. @RequestParam
+jab koi form se data h,use hum RequestParam ki help se nikalte h
+         @RequestParam("email") String email
+JO form me email aa ra hoga RequestParam is email me daldega
+
+
+
+
+
+
+
+
+
+
+
+
+
+

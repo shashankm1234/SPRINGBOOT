@@ -1,0 +1,2 @@
+-> SERVERS
+Server is the main computer of any network that fulfills request of other computers.

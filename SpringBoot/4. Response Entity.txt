@@ -1,0 +1,21 @@
+-> ResponseEntity represents an HTTP response, including headers, body, and status. While @ResponseBody puts the return value into the body of the response, 
+ResponseEntity also allows us to add headers and status code.
+
+ResponseEntity is meant to represent the entire HTTP response,HTTP status code and HTTP header. 
+We can control anything that goes into it such as HTTP status code, headers, and body. 
+
+@ResponseBody only returns the HTTP ResponseBody.
+@ResponseEntity can control HTTP status code. HTTP headers.
+
+ResponseEntity is a class in Spring Framework that represents an HTTP response. It is commonly used in Spring Boot applications to customize the 
+HTTP response returned by a controller method. 
+The main purpose of using ResponseEntity is to provide more control over the response status code, headers, and the response body.
+
+
+
+
+
+
+
+
+

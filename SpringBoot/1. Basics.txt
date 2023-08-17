@@ -1,0 +1,119 @@
+-> Springboot is extension of Spring framework. It provides us dependencies.
+To make a web application: spring-boot-starter-web
+To work with jdbc : spring-boot-starter-jdbc
+
+Spring boot also contains AutoConfigurations which does configurations for us.
+Springboot won't generate any xml file, so to modify or do some configuration, springboot has a special file i.e. application.properties
+Here we can add properties which we want.
+
+-> DEPENDENCY INJECTION
+Q. Why use dependency injection?
+Ans. In software we build objects and those objects are depended on some other objects. Dependency Injection Containers are responsible to create object for you
+and inject them in your class.
+@Component on top of a class makes that class dependent, this makes the class a Component of spring & will be generated as per requirement.
+@Autowired tells we're asking for the class and since we have it as a Component , hence we can connect them. This is done to achieve LOOSE-COUPLING.
+
+Spring can make a class object and inject them to another class. Hence DEPENDENCY INJECTION. No need of creating objects manually.
+This process is called INVERSION OF CONTROL.
+
+The Dependency Injection is a design pattern that removes the dependency of the programs. 
+In such case we provide the information from the external source such as XML file. It makes our code loosely coupled and easier for testing.
+
+Dependency injection is a process whereby objects define their dependencies (that is, the other objects with which they work) 
+only through constructor arguments,arguments to a factory method, or properties that are set on the object instance after it is 
+constructed or returned from a factory method. 
+The container then injects those dependencies when it creates the bean. 
+
+TYPES:
+(i) Setter D.I.
+DI will be injected with the help of setter and/or getter methods.
+CODE:
+package com.geeksforgeeks.org;
+import com.geeksforgeeks.org.IGeek;
+public class GFG {
+    // The object of the interface IGeek
+    IGeek geek;
+    // Setter method for property geek
+    public void setGeek(IGeek geek)
+    {
+        this.geek = geek;
+}}
+
+(ii) Constructor D.I.
+DI will be injected with the help of constructors.
+CODE:
+package com.geeksforgeeks.org;
+import com.geeksforgeeks.org.IGeek;
+public class GFG {
+    // The object of the interface IGeek
+    IGeek geek;
+    // Constructor to set the CDI
+    GFG(IGeek geek)
+    {
+        this.geek = geek;
+}}
+
+-> IoC Container (responsible for managing all the beans)
+The IoC container is responsible to instantiate, configure and assemble the objects. The IoC container gets informations from the XML file and works accordingly. 
+The main tasks performed by IoC container are:
+*to instantiate the application class
+*to configure the object
+*to assemble the dependencies between the objects
+
+It creates the objects, configures and assembles their dependencies, manages their entire life cycle. 
+The Container uses Dependency Injection(DI) to manage the components that make up the application.
+
+-> PoJo
+POJO in Java stands for Plain Old Java Object. It is an ordinary object, which is not bound by any special restriction. 
+The POJO file does not require any special classpath. It increases the readability & re-usability of a Java program.
+POJO class is used to define the object entities.
+
+-> BEANS
+Bean is an instance of class managed by Spring container.
+
+-> STATIC KEYWORD
+If any member in a class is declared as static, it means that even before the class is initiated, all the static members can be accessed 
+and become active. In contrast to this, non-static members of the same class will cease to exist when there is no object or the object goes out of scope. 
+
+-> POM FILE
+Project Object Model
+Our project will work on pom based only and dependencies declared in pom , maven will bring them from central repo to our local repo.
+It contains: 
+    (i) Parent block <parent>
+        Provides AutoConfiguration facility, 80% project configuration is done by it
+    (ii) Project block 
+    (iii) Java Properties block   <properties>
+    (iv) Dependency block <dependency> contains all the required dependency in project
+    (v) Build Plugin block contains all the third-party plugins needed in our project
+
+-> CONFIGURATION
+Spring @Configuration annotation allows us to use annotations for dependency injection. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
